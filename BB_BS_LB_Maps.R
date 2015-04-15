@@ -13,50 +13,61 @@
 library(raster)
 library(rgdal)
 library(maptools)
+library(gpclib)
+library(ggplot2)
+library(plyr)
+library(RColorBrewer)
+library(classInt)
 #### End load libraries ####
 
 #### Load data ####
-diseases <- list(BB <- stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
-                       pattern = "[[:graph:]]+bblight_audpc.tif", full.names = TRUE)),
-                 BS <- stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
-                       pattern = "[[:graph:]]+bspot_audpc.tif", full.names = TRUE)),
-                 LB <- stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
-                       pattern = "[[:graph:]]+blast_audpc.tif", full.names = TRUE)))
+diseases <- list(stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
+                                  pattern = "[[:graph:]]+bblight_audpc.tif", full.names = TRUE)),
+                 stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
+                                  pattern = "[[:graph:]]+bspot_audpc.tif", full.names = TRUE)),
+                 stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
+                                  pattern = "[[:graph:]]+blast_audpc.tif", full.names = TRUE)))
+names(diseases) <- c("BB", "BS", "LB")
 
-countries <- list(BGD <- getData("GADM", country = "BGD", level = 2),
-                  IND <- getData("GADM", country = "IND", level = 2),
-                  NPL <- getData("GADM", country = "NPL", level = 2))
+countries <- list(getData("GADM", country = "BGD", level = 2),
+                  getData("GADM", country = "IND", level = 2),
+                  getData("GADM", country = "NPL", level = 2))
+names(countries) <- c("BGD", "IND", "NPL")
 
 #### End load data ####
 
-## Take a look at this https://stat.ethz.ch/pipermail/r-help/2011-March/272790.html
-
 #### Start data munging ####
-k <- 1
-for (i in countries){
-  for(j in diseases){
-    l <- list("BGD.BB", "BGD.BS", "BGD.LB", "IND.BB", "IND.BS", "IND.LB", "NPL.BB", "NPL.BS", "NPL.LB") # create list to store output objects
-    m <- extract(mean(mask(crop(j, i), i)), i, method = "bilinear", small = TRUE, fun = mean)
-    l[k] <- m
-    k <- k + 1
+for(i in 1:3){
+  for(j in 1:3){
+    k <- extract(mean(mask(crop(diseases[[j]], countries[[i]]), countries[[i]])),
+                 countries[[i]], method = "bilinear", small = TRUE, fun = mean)
+
+    k <- data.frame(unlist(lapply(k, FUN = mean, na.rm = TRUE))) # unlist and generate mean values for each polygon
+
+    row.names(k) <- row.names(countries[[i]])
+    names(k) <- names(diseases[j])
+
+    row.names(countries[[i]]) <- row.names(countries[[i]])
+
+    assign(paste(names(countries)[i], names(diseases[j]), sep = "."),
+           spCbind(countries[[i]], k))
   }
 }
-
-IND.BB <- mean(mask(crop(BB, IND), IND))
-IND.BS <- mean(mask(crop(BS, IND), IND))
-IND.LB <- mean(mask(crop(LB, IND), IND))
-
-BGD.BB <- mean(mask(crop(BB, BGD), BGD))
-BGD.BS <- mean(mask(crop(BS, BGD), BGD))
-BGD.LB <- mean(mask(crop(LB, BGD), BGD))
-
-NPL.BB <- extract(mean(mask(crop(BB, NPL), NPL)), NPL, method = "bilinear", small = TRUE, fun = mean)
-NPL.BS <- mean(mask(crop(BS, NPL), NPL))
-NPL.LB <- mean(mask(crop(LB, NPL), NPL))
-
 #### End data munging ####
 
 #### Start data visualisation ####
+BGD.BB@data$id <- rownames(BGD.BB@data)
+BGD.BB.df <- fortify(BGD.BB, id = "BB", region = "BB")
+BGD.BB.df$id <- as.numeric(BGD.BB.df$id)
+breaks <- round(classIntervals(BGD.BB.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
+
+BGD.BB.df$plot <- cut(BGD.BB.df$id, breaks = breaks, include.lowest = TRUE)
+
+ggplot(data = BGD.BB.df, aes(long, lat, group = group)) +
+  geom_polygon(aes(group = group, fill = plot), color = "white") +
+  theme_minimal() +
+  scale_fill_brewer() +
+  coord_equal()
 
 #### End data visualisation ####
 
