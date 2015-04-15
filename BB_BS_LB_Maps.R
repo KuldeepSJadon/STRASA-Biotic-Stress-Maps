@@ -23,16 +23,22 @@ diseases <- list(BB <- stack(list.files(path = "~/Google Drive/Data/EPIRICE 25de
                  LB <- stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
                        pattern = "[[:graph:]]+blast_audpc.tif", full.names = TRUE)))
 
-countries <- list(IND <- getData("GADM", country = "IND", level = 2),
-                  BGD <- getData("GADM", country = "BGD", level = 2),
+countries <- list(BGD <- getData("GADM", country = "BGD", level = 2),
+                  IND <- getData("GADM", country = "IND", level = 2),
                   NPL <- getData("GADM", country = "NPL", level = 2))
 
 #### End load data ####
 
+## Take a look at this https://stat.ethz.ch/pipermail/r-help/2011-March/272790.html
+
 #### Start data munging ####
+k <- 1
 for (i in countries){
   for(j in diseases){
-    extract(mean(mask(crop(j, i), i)), i, method = "bilinear", small = TRUE, fun = mean)
+    l <- list("BGD.BB", "BGD.BS", "BGD.LB", "IND.BB", "IND.BS", "IND.LB", "NPL.BB", "NPL.BS", "NPL.LB") # create list to store output objects
+    m <- extract(mean(mask(crop(j, i), i)), i, method = "bilinear", small = TRUE, fun = mean)
+    l[k] <- m
+    k <- k + 1
   }
 }
 
