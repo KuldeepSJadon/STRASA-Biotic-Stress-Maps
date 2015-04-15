@@ -40,7 +40,10 @@ names(countries) <- c("BGD", "IND", "NPL")
 for(i in 1:3){
   for(j in 1:3){
     k <- extract(mean(mask(crop(diseases[[j]], countries[[i]]), countries[[i]])),
-                 countries[[i]], method = "bilinear", small = TRUE, fun = mean)
+                 coordinates(countries[[i]]), method = "bilinear",
+                 small = TRUE,
+                 fun = mean,
+                 na.rm = TRUE)
 
     k <- data.frame(unlist(lapply(k, FUN = mean, na.rm = TRUE))) # unlist and generate mean values for each polygon
 
@@ -53,6 +56,7 @@ for(i in 1:3){
            spCbind(countries[[i]], k))
   }
 }
+rm(c(k, countries, diseases))
 #### End data munging ####
 
 #### Start data visualisation ####
@@ -66,7 +70,9 @@ BGD.BB.df$plot <- cut(BGD.BB.df$id, breaks = breaks, include.lowest = TRUE)
 ggplot(data = BGD.BB.df, aes(long, lat, group = group)) +
   geom_polygon(aes(group = group, fill = plot), color = "white") +
   theme_minimal() +
-  scale_fill_brewer() +
+  scale_fill_brewer(name = "Relative Risk",
+                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
+  ggtitle("Relative Risk of Bacterial Blight for Bangladesh") +
   coord_equal()
 
 #### End data visualisation ####
