@@ -39,8 +39,8 @@ names(countries) <- c("BGD", "IND", "NPL")
 #### Start data munging ####
 for(i in 1:3){
   for(j in 1:3){
-    k <- extract(mean(diseases[[j]]), countries[[i]], method = "bilinear",
-                 weights = TRUE, small = TRUE, fun = mean, na.rm = TRUE)
+    k <- extract(mean(diseases[[j]]), countries[[i]], coordinates(countries[[i]]),
+                 method = "bilinear", weights = TRUE, fun = mean, na.rm = TRUE)
 
     k <- data.frame(unlist(lapply(k, FUN = mean, na.rm = TRUE))) # unlist and generate mean values for each polygon
 
@@ -212,7 +212,7 @@ ggplot(data = IND.LB.df, aes(Longitude, Latitude, group = group)) +
   geom_polygon(aes(group = group, fill = plot), color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
-                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately High", "High")) +
+                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\High", "High")) +
   theme(axis.title = element_text(face = "bold", size = 6),
         axis.text.y = element_text(size = 6),
         axis.text.x = element_text(size = 6),
@@ -264,7 +264,7 @@ ggplot(data = NPL.LB.df, aes(Longitude, Latitude, group = group)) +
   geom_polygon(aes(group = group, fill = factor(plot)), color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
-                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately High", "High")) +
+                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
   theme(axis.title = element_text(face = "bold", size = 6),
         axis.text.y = element_text(size = 6),
         axis.text.x = element_text(size = 6),
