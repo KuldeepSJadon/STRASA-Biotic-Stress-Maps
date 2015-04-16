@@ -61,22 +61,22 @@ rm("i", "j", "k", "countries", "diseases")
 
 #### Start data visualisation ####
 i <- ls()
-for(j in i)
-j@data$id <- rownames(j@data)
-j.df <- fortify(j, id = "BB", region = "BB")
-j.df$id <- as.numeric(j.df$id)
-breaks <- round(classIntervals(j.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
+for(j in i){
+  assign(get(paste(j))@data$id, rownames(get(paste(j))@data)) # can't get past this point, need to graph, will revisit later
+  j.df <- fortify(j, id = "BB", region = "BB")
+  j.df$id <- as.numeric(j.df$id)
+  breaks <- round(classIntervals(j.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
 
-j.df$plot <- cut(j.df$id, breaks = breaks, include.lowest = TRUE)
+  j.df$plot <- cut(j.df$id, breaks = breaks, include.lowest = TRUE)
 
-ggplot(data = j.df, aes(long, lat, group = group)) +
-  geom_polygon(aes(group = group, fill = plot), color = "white") +
-  theme_minimal() +
-  scale_fill_brewer(name = "Relative Risk",
-                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
-  ggtitle(paste("Relative Risk of",  "for Bangladesh", sep = " ")) +
-  coord_equal()
-
+  ggplot(data = j.df, aes(long, lat, group = group)) +
+    geom_polygon(aes(group = group, fill = plot), color = "white") +
+    theme_minimal() +
+    scale_fill_brewer(name = "Relative Risk",
+                      labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
+    ggtitle(paste("Relative Risk of",  "for Bangladesh", sep = " ")) +
+    coord_equal()
+}
 #### End data visualisation ####
 
 #eos
