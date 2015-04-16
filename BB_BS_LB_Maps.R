@@ -1,11 +1,11 @@
 ##############################################################################
-# title         : Compare_EPIRICE_BBlight_Outputs.R;
+# title         : BB_BS_LB_Maps.R;
 # purpose       : Compare output from EPIRICE when using 1º and 0.25º data;
-# producer      : prepared by A. Sparks; modified by M. Noel;
+# producer      : prepared by A. Sparks;
 # last update   : in Los Baños, Laguna, April 2015;
 # inputs        : EPIRICE output from 2001-2008 for BB, BS and LB;
-# outputs       : maps by ;
-# remarks 1     : http://stackoverflow.com/questions/17766989/extract-data-from-raster-with-small-polygons-rounded-weights-too-small;
+# outputs       : maps of BB, BS and LB for BGD, IND and NPL ;
+# remarks 1     : ;
 # Licence:      : GPL2;
 ##############################################################################
 
