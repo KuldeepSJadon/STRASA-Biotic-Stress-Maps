@@ -56,23 +56,25 @@ for(i in 1:3){
            spCbind(countries[[i]], k))
   }
 }
-rm(c(k, countries, diseases))
+rm("i", "j", "k", "countries", "diseases")
 #### End data munging ####
 
 #### Start data visualisation ####
-BGD.BB@data$id <- rownames(BGD.BB@data)
-BGD.BB.df <- fortify(BGD.BB, id = "BB", region = "BB")
-BGD.BB.df$id <- as.numeric(BGD.BB.df$id)
-breaks <- round(classIntervals(BGD.BB.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
+i <- ls()
+for(j in i)
+j@data$id <- rownames(j@data)
+j.df <- fortify(j, id = "BB", region = "BB")
+j.df$id <- as.numeric(j.df$id)
+breaks <- round(classIntervals(j.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
 
-BGD.BB.df$plot <- cut(BGD.BB.df$id, breaks = breaks, include.lowest = TRUE)
+j.df$plot <- cut(j.df$id, breaks = breaks, include.lowest = TRUE)
 
-ggplot(data = BGD.BB.df, aes(long, lat, group = group)) +
+ggplot(data = j.df, aes(long, lat, group = group)) +
   geom_polygon(aes(group = group, fill = plot), color = "white") +
   theme_minimal() +
   scale_fill_brewer(name = "Relative Risk",
                     labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
-  ggtitle("Relative Risk of Bacterial Blight for Bangladesh") +
+  ggtitle(paste("Relative Risk of",  "for Bangladesh", sep = " ")) +
   coord_equal()
 
 #### End data visualisation ####
