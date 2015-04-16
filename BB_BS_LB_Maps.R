@@ -98,7 +98,7 @@ NPL.LB.df$id <- as.numeric(NPL.LB.df$id)
 
 BGD.BB.breaks <- classIntervals(BGD.BB.df$id, 5, style = "equal", labels = FALSE)$brks
 BGD.BS.breaks <- classIntervals(BGD.BS.df$id, 5, style = "equal", labels = FALSE)$brks
-BGD.LB.breaks <- classIntervals(BGD.LB.df$id, 3, style = "equal", labels = FALSE)$brks
+BGD.LB.breaks <- classIntervals(BGD.LB.df$id, 2, style = "equal", labels = FALSE)$brks
 
 IND.BB.breaks <- classIntervals(IND.BB.df$id, 5, style = "equal", labels = FALSE)$brks
 IND.BS.breaks <- classIntervals(IND.BS.df$id, 5, style = "equal", labels = FALSE)$brks
