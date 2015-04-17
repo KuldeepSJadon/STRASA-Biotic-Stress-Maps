@@ -2,4 +2,5 @@
 .Rhistory
 *.pper
 *.png
+*.tif
 .Rproj.user

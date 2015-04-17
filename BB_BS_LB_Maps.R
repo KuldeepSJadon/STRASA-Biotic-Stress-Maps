@@ -1,11 +1,11 @@
 ##############################################################################
-# title         : Compare_EPIRICE_BBlight_Outputs.R;
+# title         : BB_BS_LB_Maps.R;
 # purpose       : Compare output from EPIRICE when using 1º and 0.25º data;
-# producer      : prepared by A. Sparks; modified by M. Noel;
+# producer      : prepared by A. Sparks;
 # last update   : in Los Baños, Laguna, April 2015;
 # inputs        : EPIRICE output from 2001-2008 for BB, BS and LB;
-# outputs       : maps by ;
-# remarks 1     : http://stackoverflow.com/questions/17766989/extract-data-from-raster-with-small-polygons-rounded-weights-too-small;
+# outputs       : maps of BB, BS and LB for BGD, IND and NPL ;
+# remarks 1     : ;
 # Licence:      : GPL2;
 ##############################################################################
 
@@ -40,7 +40,7 @@ names(countries) <- c("BGD", "IND", "NPL")
 for(i in 1:3){
   for(j in 1:3){
     k <- extract(mean(diseases[[j]]), countries[[i]], method = "bilinear",
-                 weights = TRUE, small = TRUE, fun = mean, na.rm = TRUE)
+                 weights = TRUE, fun = mean, na.rm = TRUE)
 
     k <- data.frame(unlist(lapply(k, FUN = mean, na.rm = TRUE))) # unlist and generate mean values for each polygon
 
@@ -69,9 +69,9 @@ NPL.BB@data$id <- rownames(NPL.BB@data)
 NPL.BS@data$id <- rownames(NPL.BS@data)
 NPL.LB@data$id <- rownames(NPL.LB@data)
 
-BGD.BB.df <- fortify(BGD.BB, id = "BB", region = "BB")
-BGD.BS.df <- fortify(BGD.BS, id = "BS", region = "BS")
-BGD.LB.df <- fortify(BGD.LB, id = "LB", region = "LB")
+BGD.BB.df <- fortify(BGD.BB, region = "id")
+BGD.BS.df <- fortify(BGD.BS, region = "id")
+BGD.LB.df <- fortify(BGD.LB, region = "id")
 names(BGD.BB.df) <- names(BGD.BS.df) <- names(BGD.LB.df) <- c("Longitude", "Latitude", "order", "hole", "piece", "group", "id")
 
 IND.BB.df <- fortify(IND.BB, id = "BB", region = "BB")
@@ -96,17 +96,17 @@ NPL.BB.df$id <- as.numeric(NPL.BB.df$id)
 NPL.BS.df$id <- as.numeric(NPL.BS.df$id)
 NPL.LB.df$id <- as.numeric(NPL.LB.df$id)
 
-BGD.BB.breaks <- round(classIntervals(BGD.BB.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
-BGD.BS.breaks <- round(classIntervals(BGD.BS.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
-BGD.LB.breaks <- round(classIntervals(BGD.LB.df$id, 3, style = "equal", labels = FALSE)$brks, 0)
+BGD.BB.breaks <- classIntervals(BGD.BB.df$id, 5, style = "equal", labels = FALSE)$brks
+BGD.BS.breaks <- classIntervals(BGD.BS.df$id, 5, style = "equal", labels = FALSE)$brks
+BGD.LB.breaks <- classIntervals(BGD.LB.df$id, 2, style = "equal", labels = FALSE)$brks
 
-IND.BB.breaks <- round(classIntervals(IND.BB.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
-IND.BS.breaks <- round(classIntervals(IND.BS.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
-IND.LB.breaks <- round(classIntervals(IND.LB.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
+IND.BB.breaks <- classIntervals(IND.BB.df$id, 5, style = "equal", labels = FALSE)$brks
+IND.BS.breaks <- classIntervals(IND.BS.df$id, 5, style = "equal", labels = FALSE)$brks
+IND.LB.breaks <- classIntervals(IND.LB.df$id, 5, style = "equal", labels = FALSE)$brks
 
-NPL.BB.breaks <- round(classIntervals(NPL.BB.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
-NPL.BS.breaks <- round(classIntervals(NPL.BS.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
-NPL.LB.breaks <- round(classIntervals(NPL.LB.df$id, 5, style = "equal", labels = FALSE)$brks, 0)
+NPL.BB.breaks <- classIntervals(NPL.BB.df$id, 5, style = "equal", labels = FALSE)$brks
+NPL.BS.breaks <- classIntervals(NPL.BS.df$id, 5, style = "equal", labels = FALSE)$brks
+NPL.LB.breaks <- classIntervals(NPL.LB.df$id, 5, style = "equal", labels = FALSE)$brks
 
 BGD.BB.df$plot <- cut(BGD.BB.df$id, breaks = BGD.BB.breaks, include.lowest = TRUE)
 BGD.BS.df$plot <- cut(BGD.BS.df$id, breaks = BGD.BS.breaks, include.lowest = TRUE)
@@ -122,8 +122,8 @@ NPL.LB.df$plot <- cut(NPL.LB.df$id, breaks = NPL.LB.breaks, include.lowest = TRU
 
 # BGD
 # BB
-ggplot(data = BGD.BB.df, aes(Longitude, Latitude, group = group)) +
-  geom_polygon(aes(group = group, fill = plot), color = "white", size = 0.2) +
+ggplot(data = BGD.BB.df, aes(Longitude, Latitude, group = group, fill = plot)) +
+  geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
                     labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
@@ -212,7 +212,7 @@ ggplot(data = IND.LB.df, aes(Longitude, Latitude, group = group)) +
   geom_polygon(aes(group = group, fill = plot), color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
-                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately High", "High")) +
+                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\High", "High")) +
   theme(axis.title = element_text(face = "bold", size = 6),
         axis.text.y = element_text(size = 6),
         axis.text.x = element_text(size = 6),
@@ -264,7 +264,7 @@ ggplot(data = NPL.LB.df, aes(Longitude, Latitude, group = group)) +
   geom_polygon(aes(group = group, fill = factor(plot)), color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
-                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately High", "High")) +
+                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
   theme(axis.title = element_text(face = "bold", size = 6),
         axis.text.y = element_text(size = 6),
         axis.text.x = element_text(size = 6),
