@@ -139,8 +139,8 @@ ggplot(data = BGD.BB.df, aes(Longitude, Latitude, group = group, fill = plot)) +
 ggsave("Maps/BGD_BB.png", width = 6, height = 6, units = "in")
 
 # BS
-ggplot(data = BGD.BS.df, aes(Longitude, Latitude, group = group)) +
-  geom_polygon(aes(group = group, fill = plot), color = "white", size = 0.2) +
+ggplot(data = BGD.BS.df, aes(Longitude, Latitude, group = group, fill = plot)) +
+  geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
                     labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
@@ -156,8 +156,8 @@ ggplot(data = BGD.BS.df, aes(Longitude, Latitude, group = group)) +
 ggsave("Maps/BGD_BS.png", width = 6, height = 6, units = "in")
 
 # LB
-ggplot(data = BGD.LB.df, aes(Longitude, Latitude, group = group)) +
-  geom_polygon(aes(group = group, fill = plot), color = "white", size = 0.2) +
+ggplot(data = BGD.LB.df, aes(Longitude, Latitude, group = group, fill = plot)) +
+  geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
                     labels = c("Low", "Moderately\nLow", "Moderate")) +
@@ -174,8 +174,8 @@ ggsave("Maps/BGD_LB.png", width = 6, height = 6, units = "in")
 
 # IND
 # BB
-ggplot(data = IND.BB.df, aes(Longitude, Latitude, group = group)) +
-  geom_polygon(aes(group = group, fill = plot), color = "white", size = 0.2) +
+ggplot(data = IND.BB.df, aes(Longitude, Latitude, group = group, fill = plot)) +
+  geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
                     labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
@@ -212,7 +212,7 @@ ggplot(data = IND.LB.df, aes(Longitude, Latitude, group = group)) +
   geom_polygon(aes(group = group, fill = plot), color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu",
                     name = "Relative Risk",
-                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\High", "High")) +
+                    labels = c("Low", "Moderately\nLow", "Moderate", "Moderately\nHigh", "High")) +
   theme(axis.title = element_text(face = "bold", size = 6),
         axis.text.y = element_text(size = 6),
         axis.text.x = element_text(size = 6),
