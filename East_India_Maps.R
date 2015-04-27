@@ -43,6 +43,6 @@ for(i in 1:3){
 
   row.names(IDN) <- row.names(IDN)
 
-  assign(paste(names(IDN, names(diseases[i]), sep = ".")), spCbind(IDN, k))
+  assign(paste(names(IDN), names(diseases[i]), sep = "."), spCbind(IDN, k))
 }
 
