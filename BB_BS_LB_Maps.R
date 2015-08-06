@@ -21,6 +21,8 @@ library(classInt)
 #### End load libraries ####
 
 #### Load data ####
+
+# Disease data from EPIRICE model (IRRI)
 diseases <- list(stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
                                   pattern = "[[:graph:]]+bblight_audpc.tif", full.names = TRUE)),
                  stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
@@ -29,16 +31,21 @@ diseases <- list(stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-0
                                   pattern = "[[:graph:]]+blast_audpc.tif", full.names = TRUE)))
 names(diseases) <- c("BB", "BS", "LB")
 
-countries <- list(getData("GADM", country = "BGD", level = 2),
-                  getData("GADM", country = "IND", level = 2),
-                  getData("GADM", country = "NPL", level = 2))
+# GAUL Level 2 country layer (FAO)
+gaul <- readOGR(dsn = "/Users/asparks/Data/gaul/g2015_2014_2/", layer = "g2015_2014_2")
+# original GAUL unit layers are available from FAO:
+#http://data.fao.org/map?entryId=f7e7adb0-88fd-11da-a88f-000d939bc5d8
+
+countries <- list(BGD <- gaul[gaul@data$ADM0_NAME == "Bangladesh", ],
+                  IND <- gaul[gaul@data$ADM0_NAME == "India", ],
+                  NPL <- gaul[gaul@data$ADM0_NAME == "Nepal", ])
 names(countries) <- c("BGD", "IND", "NPL")
 
 #### End load data ####
 
 #### Start data munging ####
-for(i in 1:3){
-  for(j in 1:3){
+for (i in 1:3) {
+  for (j in 1:3) {
     k <- extract(mean(diseases[[j]]), countries[[i]], method = "bilinear",
                  weights = TRUE, fun = mean, na.rm = TRUE)
 
@@ -186,7 +193,7 @@ ggplot(data = IND.BB.df, aes(Longitude, Latitude, group = group, fill = plot)) +
         legend.text = element_text(size = 9),
         strip.text.x = element_text(size = 10),
         legend.title = element_blank()) +
-  theme(legend.position="bottom") +
+  theme(legend.position = "bottom") +
   coord_equal()
 ggsave("Maps/IND_BB.png", width = 6, height = 6, units = "in", dpi = 600)
 
