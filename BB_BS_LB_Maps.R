@@ -1,6 +1,6 @@
 ##############################################################################
 # title         : BB_BS_LB_Maps.R;
-# purpose       : Compare output from EPIRICE when using 1º and 0.25º data;
+# purpose       : Generate .png files for display of predicted disease severity;
 # producer      : prepared by A. Sparks;
 # last update   : in Los Baños, Laguna, April 2015;
 # inputs        : EPIRICE output from 2001-2008 for BB, BS and LB;
@@ -63,7 +63,7 @@ for (i in 1:3) {
 rm("i", "j", "k", "countries", "diseases")
 #### End data munging ####
 
-#### Start data visualisation ####
+#### Start data visualisation in R ####
 BGD.BB@data$id <- rownames(BGD.BB@data)
 BGD.BS@data$id <- rownames(BGD.BS@data)
 BGD.LB@data$id <- rownames(BGD.LB@data)
