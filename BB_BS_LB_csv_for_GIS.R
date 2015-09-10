@@ -121,4 +121,15 @@ write.csv(NPL.BB@data, "Data/NPL_BB.csv", row.names = FALSE)
 write.csv(NPL.LB@data, "Data/NPL_LB.csv", row.names = FALSE)
 write.csv(NPL.BS@data, "Data/NPL_BS.csv", row.names = FALSE)
 
+# Modify India BS severity levels based on feedback from G. S. Laha
+IND.BS@data[, 13] <- as.character(IND.BS@data[, 13])
+
+IND.BS@data[, 13][IND.BS@data[, 6] == "Bihar"] <- "Moderate"
+IND.BS@data[, 13][IND.BS@data[, 6] == "Jharkhand"] <- "Moderate"
+IND.BS@data[, 13][IND.BS@data[, 6] == "Punjab"] <- "Moderate"
+IND.BS@data[, 13][IND.BS@data[, 6] == "Tamil Nadu"] <- "Moderate"
+IND.BS@data[, 13][IND.BS@data[, 6] == "Uttar Pradesh"] <- "Moderate"
+
+write.csv(IND.BS@data, "Data/Modified_IND_BS.csv", row.names = FALSE)
+
 #eos
