@@ -23,15 +23,16 @@ library(classInt)
 
 # Disease data from EPIRICE model (IRRI)
 diseases <- list(stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
-                                  pattern = "[[:graph:]]+bblight_audpc.tif", full.names = TRUE)),
+                                  pattern = "[[:graph:]]+bblight_audpc.tif$", full.names = TRUE)),
                  stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
-                                  pattern = "[[:graph:]]+bspot_audpc.tif", full.names = TRUE)),
+                                  pattern = "[[:graph:]]+bspot_audpc.tif$", full.names = TRUE)),
                  stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
-                                  pattern = "[[:graph:]]+blast_audpc.tif", full.names = TRUE)))
+                                  pattern = "[[:graph:]]+blast_audpc.tif$", full.names = TRUE)))
 names(diseases) <- c("BB", "BS", "LB")
 
 # GAUL Level 2 country layer (FAO)
-gaul <- readOGR(dsn = "/Users/asparks/Data/gaul/g2015_2014_2/", layer = "g2015_2014_2")
+gaul <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL",
+                layer = "BGD_IND_NPL")
 # original GAUL unit layers are available from FAO:
 #http://data.fao.org/map?entryId=f7e7adb0-88fd-11da-a88f-000d939bc5d8
 
@@ -69,23 +70,44 @@ BGD.LB.breaks <- classIntervals(BGD.LB@data$LB, 2, style = "equal", labels = FAL
 
 IND.BB.breaks <- classIntervals(IND.BB@data$BB, 5, style = "equal", labels = FALSE)$brks
 IND.BS.breaks <- classIntervals(IND.BS@data$BS, 5, style = "equal", labels = FALSE)$brks
-IND.LB.breaks <- classIntervals(IND.LB@data$LB, 2, style = "equal", labels = FALSE)$brks
+IND.LB.breaks <- classIntervals(IND.LB@data$LB, 5, style = "equal", labels = FALSE)$brks
 
 NPL.BB.breaks <- classIntervals(NPL.BB@data$BB, 5, style = "equal", labels = FALSE)$brks
 NPL.BS.breaks <- classIntervals(NPL.BS@data$BS, 5, style = "equal", labels = FALSE)$brks
-NPL.LB.breaks <- classIntervals(NPL.LB@data$LB, 2, style = "equal", labels = FALSE)$brks
+NPL.LB.breaks <- classIntervals(NPL.LB@data$LB, 5, style = "equal", labels = FALSE)$brks
 
-BGD.BB@data$BB <- cut(BGD.BB@data$BB, breaks = BGD.BB.breaks, include.lowest = TRUE)
-BGD.BS@data$BS <- cut(BGD.BS@data$BS, breaks = BGD.BS.breaks, include.lowest = TRUE)
-BGD.LB@data$LB <- cut(BGD.LB@data$LB, breaks = BGD.LB.breaks, include.lowest = TRUE)
+labs <- c("Low", "Moderately Low", "Moderate", "Moderately High", "High")
+labs2 <- c("Low", "Moderately Low")
 
-IND.BB@data$BB <- cut(IND.BB@data$BB, breaks = IND.BB.breaks, include.lowest = TRUE)
-IND.BS@data$BS <- cut(IND.BS@data$BS, breaks = IND.BS.breaks, include.lowest = TRUE)
-IND.LB@data$LB <- cut(IND.LB@data$LB, breaks = IND.LB.breaks, include.lowest = TRUE)
+BGD.BB@data$BB <- cut(BGD.BB@data$BB, breaks = BGD.BB.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
+BGD.BS@data$BS <- cut(BGD.BS@data$BS, breaks = BGD.BS.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
+BGD.LB@data$LB <- cut(BGD.LB@data$LB, breaks = BGD.LB.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
 
-NPL.BB@data$BB <- cut(NPL.BB@data$BB, breaks = NPL.BB.breaks, include.lowest = TRUE)
-NPL.BS@data$BS <- cut(NPL.BS@data$BS, breaks = NPL.BS.breaks, include.lowest = TRUE)
-NPL.LB@data$LB <- cut(NPL.LB@data$LB, breaks = NPL.LB.breaks, include.lowest = TRUE)
+IND.BB@data$BB <- cut(IND.BB@data$BB, breaks = IND.BB.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
+IND.BS@data$BS <- cut(IND.BS@data$BS, breaks = IND.BS.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
+IND.LB@data$LB <- cut(IND.LB@data$LB, breaks = IND.LB.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
+
+NPL.BB@data$BB <- cut(NPL.BB@data$BB, breaks = NPL.BB.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
+NPL.BS@data$BS <- cut(NPL.BS@data$BS, breaks = NPL.BS.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
+NPL.LB@data$LB <- cut(NPL.LB@data$LB, breaks = NPL.LB.breaks,
+                      include.lowest = TRUE,
+                      labels = labs)
 
 write.csv(BGD.BB@data, "Data/BGD_BB.csv", row.names = FALSE)
 write.csv(BGD.LB@data, "Data/BGD_LB.csv", row.names = FALSE)
