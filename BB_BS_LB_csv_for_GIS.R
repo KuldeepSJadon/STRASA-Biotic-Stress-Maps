@@ -14,7 +14,6 @@ library(raster)
 library(rgdal)
 library(maptools)
 library(gpclib)
-library(ggplot2)
 library(plyr)
 library(classInt)
 #### End load libraries ####
@@ -22,11 +21,11 @@ library(classInt)
 #### Load data ####
 
 # Disease data from EPIRICE model (IRRI)
-diseases <- list(stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
+diseases <- list(stack(list.files(path = "./Data/EPIRICE 25deg 01-08 PK1/",
                                   pattern = "[[:graph:]]+bblight_audpc.tif$", full.names = TRUE)),
-                 stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
+                 stack(list.files(path = "./Data/EPIRICE 25deg 01-08 PK1/",
                                   pattern = "[[:graph:]]+bspot_audpc.tif$", full.names = TRUE)),
-                 stack(list.files(path = "~/Google Drive/Data/EPIRICE 25deg 01-08 PK1/",
+                 stack(list.files(path = "./Data/EPIRICE 25deg 01-08 PK1/",
                                   pattern = "[[:graph:]]+blast_audpc.tif$", full.names = TRUE)))
 names(diseases) <- c("BB", "BS", "LB")
 
@@ -64,7 +63,7 @@ rm("i", "j", "k", "countries", "diseases")
 #### End data munging ####
 
 #### Write csv files to disk for use in a GIS ###
-BGD.BB.breaks <- classIntervals(BGD.BB@data$BB, 5, style = "equal", labels = FALSE)$brks
+BGD.BB.breaks <- classIntervals(BGD.BB@data$BB, 2, style = "equal", labels = FALSE)$brks
 BGD.BS.breaks <- classIntervals(BGD.BS@data$BS, 5, style = "equal", labels = FALSE)$brks
 BGD.LB.breaks <- classIntervals(BGD.LB@data$LB, 2, style = "equal", labels = FALSE)$brks
 
@@ -76,18 +75,19 @@ NPL.BB.breaks <- classIntervals(NPL.BB@data$BB, 5, style = "equal", labels = FAL
 NPL.BS.breaks <- classIntervals(NPL.BS@data$BS, 5, style = "equal", labels = FALSE)$brks
 NPL.LB.breaks <- classIntervals(NPL.LB@data$LB, 5, style = "equal", labels = FALSE)$brks
 
-labs <- c("Low", "Moderately Low", "Moderate", "Moderately High", "High")
-labs2 <- c("Low", "Moderately Low")
+labs <- c("Low", "Moderately Low", "Moderate", "Moderately Severe", "Severe")
+labs2 <- c("Moderately Severe", "Severe")
+labs3 <- c("Low", "Moderately Low")
 
 BGD.BB@data$BB <- cut(BGD.BB@data$BB, breaks = BGD.BB.breaks,
                       include.lowest = TRUE,
-                      labels = labs)
+                      labels = labs2)
 BGD.BS@data$BS <- cut(BGD.BS@data$BS, breaks = BGD.BS.breaks,
                       include.lowest = TRUE,
                       labels = labs)
 BGD.LB@data$LB <- cut(BGD.LB@data$LB, breaks = BGD.LB.breaks,
                       include.lowest = TRUE,
-                      labels = labs)
+                      labels = labs3)
 
 IND.BB@data$BB <- cut(IND.BB@data$BB, breaks = IND.BB.breaks,
                       include.lowest = TRUE,
@@ -109,27 +109,36 @@ NPL.LB@data$LB <- cut(NPL.LB@data$LB, breaks = NPL.LB.breaks,
                       include.lowest = TRUE,
                       labels = labs)
 
-write.csv(BGD.BB@data, "Data/BGD_BB.csv", row.names = FALSE)
-write.csv(BGD.LB@data, "Data/BGD_LB.csv", row.names = FALSE)
-write.csv(BGD.BS@data, "Data/BGD_BS.csv", row.names = FALSE)
+write.csv(BGD.BB@data, "csv files/BGD_BB.csv", row.names = FALSE)
+write.csv(BGD.LB@data, "csv files/BGD_LB.csv", row.names = FALSE)
+write.csv(BGD.BS@data, "csv files/BGD_BS.csv", row.names = FALSE)
 
-write.csv(IND.BB@data, "Data/IND_BB.csv", row.names = FALSE)
-write.csv(IND.LB@data, "Data/IND_LB.csv", row.names = FALSE)
-write.csv(IND.BS@data, "Data/IND_BS.csv", row.names = FALSE)
+write.csv(IND.BB@data, "csv files/IND_BB.csv", row.names = FALSE)
+write.csv(IND.LB@data, "csv files/IND_LB.csv", row.names = FALSE)
+write.csv(IND.BS@data, "csv files/IND_BS.csv", row.names = FALSE)
 
-write.csv(NPL.BB@data, "Data/NPL_BB.csv", row.names = FALSE)
-write.csv(NPL.LB@data, "Data/NPL_LB.csv", row.names = FALSE)
-write.csv(NPL.BS@data, "Data/NPL_BS.csv", row.names = FALSE)
+write.csv(NPL.BB@data, "csv files/NPL_BB.csv", row.names = FALSE)
+write.csv(NPL.LB@data, "csv files/NPL_LB.csv", row.names = FALSE)
+write.csv(NPL.BS@data, "csv files/NPL_BS.csv", row.names = FALSE)
 
-# Modify India BS severity levels based on feedback from G. S. Laha
+# Modify India BS/BB severity levels based on feedback from G. S. Laha
 IND.BS@data[, 13] <- as.character(IND.BS@data[, 13])
+IND.BB@data[, 13] <- as.character(IND.BB@data[, 13])
 
+#BS
 IND.BS@data[, 13][IND.BS@data[, 6] == "Bihar"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Jharkhand"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Punjab"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Tamil Nadu"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Uttar Pradesh"] <- "Moderate"
 
-write.csv(IND.BS@data, "Data/Modified_IND_BS.csv", row.names = FALSE)
+#BB
+IND.BB@data[, 13][IND.BB@data[, 6] == "Andhra Pradesh"] <- "Moderate"
+IND.BB@data[, 13][IND.BB@data[, 6] == "Madhya Pradesh"] <- "Moderately Low"
+IND.BB@data[, 13][IND.BB@data[, 6] == "Tamil Nadu"] <- "Moderately Severe"
+IND.BB@data[, 13][IND.BB@data[, 6] == "West Bengal"] <- "Moderately Severe"
+
+write.csv(IND.BS@data, "csv files/Modified_IND_BS.csv", row.names = FALSE)
+write.csv(IND.BB@data, "csv files/Modified_IND_BB.csv", row.names = FALSE)
 
 #eos
