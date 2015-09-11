@@ -152,6 +152,7 @@ ggplot(data = IND.BB.df, aes(long, lat, group = group, fill = BB)) +
         legend.text = element_text(size = 9),
         strip.text.x = element_text(size = 10),
         legend.title = element_blank()) +
+  ggtitle("Relative Risk of Bacterial Blight for India") +
   coord_map()
 ggsave("Maps/IND_BB.png", width = 6, height = 6, units = "in")
 
