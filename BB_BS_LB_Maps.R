@@ -146,11 +146,11 @@ ggplot(data = IND.BB.df, aes(long, lat, group = group, fill = BB)) +
   scale_y_continuous(name = "Latitude") +
   scale_x_continuous(name = "Longitude") +
   theme(axis.title = element_text(face = "bold", size = 6),
-        axis.text.y = element_text(size = 10),
-        axis.text.x = element_text(size = 10),
-        plot.title = element_text(face = "bold", size = 12),
-        legend.text = element_text(size = 9),
-        strip.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 6),
+        axis.text.x = element_text(size = 6),
+        plot.title = element_text(face = "bold", size = 8),
+        legend.text = element_text(size = 5),
+        strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Bacterial Blight for India") +
   coord_map("lambert", lat0 = 6.755997, lat1 = 33.17194)
