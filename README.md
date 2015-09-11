@@ -3,6 +3,8 @@ This repository hosts R scripts for generating maps of biotic stresses for the S
 
 To use these data, you will need to download the GAUL dataset, GAUL - Second level - Reference year 2014, from FAO's website: http://data.fao.org/map?entryId=f7e7adb0-88fd-11da-a88f-000d939bc5d8&tab=metadata.
 
-The "Data" folder contains .csv files with unmodified values that can be used with a GIS program such as ArcGIS or QGIS to link the data in the .csv file with the GAUL data set.
+The "Data" folder contains GeoTiff files from EPIRICE with AUDPC values to be extracted at district level using GAUL data.
 
-See http://strasa.irri.org for more on the whole STRASA Project
+The "csv files" folder contains csv files that can be used with the GAUL data set for making further maps in R or another GIS software like ArcGIS or QGIS. The BB_BS_LB_Maps.R script uses these for such a purpose.
+
+See http://strasa.irri.org for more on the STRASA Project itself.
