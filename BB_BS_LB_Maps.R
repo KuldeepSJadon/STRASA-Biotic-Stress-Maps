@@ -48,7 +48,9 @@ BGD.BS$BS <- factor(BGD.BS$BS, levels(BGD.BS$BS)[c(1, 3, 2, 4, 5)])
 BGD.BB$BB <- factor(BGD.LB$LB, levels(BGD.LB$LB)[c(2, 1)])
 
 IND.BB$BB <- factor(IND.BB$BB, levels(IND.BB$BB)[c(1, 3, 2, 4, 5)])
+IND.BB.mod$BB <- factor(IND.BB.mod$BB, levels(IND.BB.mod$BS)[c(1, 3, 2, 4, 5)])
 IND.BS$BS <- factor(IND.BS$BS, levels(IND.BS$BS)[c(1, 3, 2, 4, 5)])
+IND.BS.mod$BS <- factor(IND.BS.mod$BS, levels(IND.BS.mod$BS)[c(1, 3, 2, 4, 5)])
 IND.LB$LB <- factor(IND.LB$LB, levels(IND.LB$LB)[c(1, 3, 2, 4, 5)])
 
 NPL.BB$BB <- factor(NPL.BB$BB, levels(NPL.BB$BB)[c(1, 3, 2, 4, 5)])
