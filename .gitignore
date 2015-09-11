@@ -1,8 +1,6 @@
 *.Rproj*
 .Rhistory
 *.pper
-*.png
-*.tif
 .Rproj.user
 
 References/fphys-04-00040.pdf
