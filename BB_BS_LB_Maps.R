@@ -42,8 +42,6 @@ NPL.BS <- read.csv("csv files/NPL_BS.csv")
 NPL.LB <- read.csv("csv files/NPL_LB.csv")
 
 # rearrange factors for proper plotting since defaults to alphabetical
-
-BGD.BB$BB <- factor(BGD.BB$BB, levels(BGD.BB$BB)[c(2, 1)])
 BGD.BS$BS <- factor(BGD.BS$BS, levels(BGD.BS$BS)[c(1, 3, 2, 4, 5)])
 BGD.BB$BB <- factor(BGD.LB$LB, levels(BGD.LB$LB)[c(2, 1)])
 
