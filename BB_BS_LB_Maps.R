@@ -101,7 +101,7 @@ ggplot(data = BGD.BB.df, aes(long, lat, group = group, fill = BB)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Bacterial Blight for Bangladesh") +
-  coord_map()
+  coord_map("lambert", lat0 = 20.74623, lat1 = 26.63195)
 ggsave("Maps/BGD_BB.png", width = 6, height = 6, units = "in")
 
 # BS
@@ -118,7 +118,7 @@ ggplot(data = BGD.BS.df, aes(long, lat, group = group, fill = BS)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Brown Spot for Bangladesh") +
-  coord_map()
+  coord_map("lambert", lat0 = 20.74623, lat1 = 26.63195)
 ggsave("Maps/BGD_BS.png", width = 6, height = 6, units = "in")
 
 # LB
@@ -135,7 +135,7 @@ ggplot(data = BGD.LB.df, aes(long, lat, group = group, fill = LB)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Leaf Blast for Bangladesh") +
-  coord_map()
+  coord_map("lambert", lat0 = 20.74623, lat1 = 26.63195)
 ggsave("Maps/BGD_LB.png", width = 6, height = 6, units = "in")
 
 # IND
@@ -153,7 +153,7 @@ ggplot(data = IND.BB.df, aes(long, lat, group = group, fill = BB)) +
         strip.text.x = element_text(size = 10),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Bacterial Blight for India") +
-  coord_map()
+  coord_map("lambert", lat0 = 6.755997, lat1 = 33.17194)
 ggsave("Maps/IND_BB.png", width = 6, height = 6, units = "in")
 
 # BS
@@ -170,7 +170,7 @@ ggplot(data = IND.BS.df, aes(long, lat, group = group, fill = BS)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Brown Spot for India") +
-  coord_map()
+  coord_map("lambert", lat0 = 6.755997, lat1 = 33.17194)
 ggsave("Maps/IND_BS.png", width = 6, height = 6, units = "in")
 
 # LB
@@ -187,7 +187,7 @@ ggplot(data = IND.LB.df, aes(long, lat, group = group, fill = LB)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Leaf Blast for India") +
-  coord_map()
+  coord_map("lambert", lat0 = 6.755997, lat1 = 33.17194)
 ggsave("Maps/IND_LB.png", width = 6, height = 6, units = "in")
 
 # NPL
@@ -205,7 +205,7 @@ ggplot(data = NPL.BB.df, aes(long, lat, group = group, fill = BB)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Bacterial Blight for Nepal") +
-  coord_map()
+  coord_map("lambert", lat0 = 26.35358, lat1 = 30.44968)
 ggsave("Maps/NPL_BB.png", width = 6, height = 6, units = "in")
 
 # BS
@@ -222,7 +222,7 @@ ggplot(data = NPL.BS.df, aes(long, lat, group = group, fill = BS)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Brown Spot for Nepal") +
-  coord_map()
+  coord_map("lambert", lat0 = 26.35358, lat1 = 30.44968)
 ggsave("Maps/NPL_BS.png", width = 6, height = 6, units = "in")
 
 # LB
@@ -239,7 +239,7 @@ ggplot(data = NPL.LB.df, aes(long, lat, group = group, fill = LB)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Relative Risk of Leaf Blast for Nepal") +
-  coord_map()
+  coord_map("lambert", lat0 = 26.35358, lat1 = 30.44968)
 ggsave("Maps/NPL_LB.png", width = 6, height = 6, units = "in")
 
 #### End data visualisation original data ####
@@ -259,7 +259,7 @@ ggplot(data = IND.BB.mod.df, aes(long, lat, group = group, fill = BB)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Corrected Relative Risk of Bacterial Blight for India") +
-  coord_map()
+  coord_map("lambert", lat0 = 6.755997, lat1 = 33.17194)
 ggsave("Maps/Modified_IND_BB.png", width = 6, height = 6, units = "in")
 
 # BS
@@ -276,7 +276,7 @@ ggplot(data = IND.BS.mod.df, aes(long, lat, group = group, fill = BS)) +
         strip.text.x = element_text(size = 6),
         legend.title = element_blank()) +
   ggtitle("Corrected Relative Risk of Brown Spot for India") +
-  coord_map()
+  coord_map("lambert", lat0 = 6.755997, lat1 = 33.17194)
 ggsave("Maps/Modified_IND_BS.png", width = 6, height = 6, units = "in")
 
 #eos
