@@ -126,21 +126,30 @@ IND.BS@data[, 13] <- as.character(IND.BS@data[, 13])
 IND.BB@data[, 13] <- as.character(IND.BB@data[, 13])
 
 #BS
+# Small scale changes
 IND.BS@data[, 13][IND.BS@data[, 6] == "Bihar"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Jharkhand"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Punjab"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Tamil Nadu"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Uttar Pradesh"] <- "Moderate"
 
-# change Level 2 based on feedback from Laha
-source("Modfiy_IND_BS.R")
-ifelse(IND.BS@data$ADM2_NAME %in% updateBS == TRUE, IND.BS@data$BS_Mod == "Severe", IND.BS@data$BS_Mod == IND.BS@data$BS)
+# Large scale changes
+source("Modify_IND_BS.R")
+IND.BS@data$ADM2_CODE[IND.BS@data$ADM2_CODE %in% updateBS] <- "Severe"
 
 #BB
+# Small scale changes
 IND.BB@data[, 13][IND.BB@data[, 6] == "Andhra Pradesh"] <- "Moderate"
 IND.BB@data[, 13][IND.BB@data[, 6] == "Madhya Pradesh"] <- "Moderately Low"
 IND.BB@data[, 13][IND.BB@data[, 6] == "Tamil Nadu"] <- "Moderately Severe"
 IND.BB@data[, 13][IND.BB@data[, 6] == "West Bengal"] <- "Moderately Severe"
+
+# Large scale changes
+source("Modify_IND_BB.R")
+IND.BB@data$ADM2_CODE[IND.BB@data$ADM2_CODE %in% updateBB] <- "Severe"
+
+names(IND.BS@data)[13] <- "BS_Modified"
+names(IND.BB@data)[13] <- "BB_Modified"
 
 write.csv(IND.BS@data, "csv files/Modified_IND_BS.csv", row.names = FALSE)
 write.csv(IND.BB@data, "csv files/Modified_IND_BB.csv", row.names = FALSE)
