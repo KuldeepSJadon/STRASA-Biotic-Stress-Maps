@@ -135,7 +135,7 @@ IND.BS@data[, 13][IND.BS@data[, 6] == "Uttar Pradesh"] <- "Moderate"
 
 # Large scale changes
 source("Modify_IND_BS.R")
-IND.BS@data$ADM2_CODE[IND.BS@data$ADM2_CODE %in% updateBS] <- "Severe"
+IND.BS@data$BS[IND.BS@data$ADM2_CODE %in% updateBS] <- "Severe"
 
 #BB
 # Small scale changes
@@ -146,7 +146,7 @@ IND.BB@data[, 13][IND.BB@data[, 6] == "West Bengal"] <- "Moderately Severe"
 
 # Large scale changes
 source("Modify_IND_BB.R")
-IND.BB@data$ADM2_CODE[IND.BB@data$ADM2_CODE %in% updateBB] <- "Severe"
+IND.BB@data$BB[IND.BB@data$ADM2_CODE %in% updateBB] <- "Severe"
 
 names(IND.BS@data)[13] <- "BS_Modified"
 names(IND.BB@data)[13] <- "BB_Modified"
