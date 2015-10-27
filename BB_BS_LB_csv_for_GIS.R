@@ -133,7 +133,7 @@ IND.BS@data[, 13][IND.BS@data[, 6] == "Tamil Nadu"] <- "Moderate"
 IND.BS@data[, 13][IND.BS@data[, 6] == "Uttar Pradesh"] <- "Moderate"
 
 # change Level 2 based on feedback from Laha
-source("HighBS.R")
+source("Modfiy_IND_BS.R")
 ifelse(IND.BS@data$ADM2_NAME %in% updateBS == TRUE, IND.BS@data$BS_Mod == "Severe", IND.BS@data$BS_Mod == IND.BS@data$BS)
 
 #BB
