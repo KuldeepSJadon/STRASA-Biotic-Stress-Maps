@@ -3,7 +3,7 @@ This repository hosts R scripts for generating maps of biotic stresses for the S
 
 To use these data, you will need to download the GAUL dataset, GAUL - Second level - Reference year 2014, http://www.fao.org/geonetwork/srv/en/metadata.show?id=12691&currTab=simple.
 
-The "Data" folder contains GeoTiff files from EPIRICE with AUDPC values to be extracted at district level using GAUL data.
+The "Data" folder contains GeoTiff files from EPIRICE with Area Under the Disease Progress Curve (AUDPC) values to be extracted at district level using GAUL data.
 
 The "csv files" folder contains csv files that can be used with the GAUL data set for making further maps in R or another GIS software like ArcGIS or QGIS. The BB_BS_LB_Maps.R script uses these for such a purpose.
 
