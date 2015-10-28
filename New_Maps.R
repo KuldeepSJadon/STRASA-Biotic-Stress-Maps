@@ -1,12 +1,13 @@
 library(cartography)
 library(rgdal)
+library(maptools)
 
 # Load data
 # GAUL Level 2 country layer (FAO)
 gaul <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_0/",
                 layer = "g2015_2014_0")
 # thin GAUL dataset for background plotting only. Speed up process. Not used for SA
-gaul <- thinnedSpatialPoly(gaul, tolerance = 0.2, minarea = 0.01)
+gaul <- thinnedSpatialPoly(gaul, tolerance = 0.2, minarea = 0.01, topologyPreserve = TRUE)
 
 # This is the shapefile that is used for plotting the disease severity results
 SA <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL",
@@ -20,9 +21,9 @@ Mod_IND_BS <- read.csv("csv files/Modified_IND_BS.csv")
 opar <- par(mar = c(0, 0, 1.2, 0))
 
 # Layout plot
-layoutLayer(title = "Bacterial Blight Severity as Predicted by EPIRICE for BGD, IND and NPL", # title of the map
+layoutLayer(title = "Bacterial Blight Severity Risk for BGD, IND and NPL", # title of the map
             author = "Adam H. Sparks, IRRI, CESD",
-            sources = "FAO GAUL, IRRI Interpolated GSOD Weather, EPIRICE Model",
+            sources = "FAO GAUL, IRRI Interpolated GSOD Weather, EPIRICE Model, G. S. Laha",
             scale = NULL, # no scale
             col = NA, # no color for the title box
             coltitle = "black", # color of the title
@@ -37,7 +38,7 @@ choroLayer(spdf = SA, # SpatialPolygonsDataFrame of the regions
            df = Mod_IND_BS, # data frame with compound annual growth rate
            var = "BS_Modified", # compound annual growth rate field in df
            breaks = c("Low", "Moderately Low", "Moderate", "Moderately Severe", "Severe"), # list of breaks
-           col = cols, # colors
+           #col = cols, # colors
            border = "grey40", # color of the polygons borders
            lwd = 0.5, # width of the borders
            legend.pos = "right", # position of the legend
