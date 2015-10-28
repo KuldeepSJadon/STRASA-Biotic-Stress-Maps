@@ -18,11 +18,18 @@ library(gpclib)
 library(ggplot2)
 library(plyr)
 library(RColorBrewer)
+library(cartography)
 #### End load libraries ####
 
 #### Load data ####
 # GAUL Level 2 country layer (FAO)
-gaul <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL",
+gaul <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_0/",
+                layer = "g2015_2014_0")
+# thin GAUL dataset for background plotting only. Speed up process. Not used for SA
+gaul <- thinnedSpatialPoly(gaul, tolerance = 0.1, minarea = 0.001)
+
+# This is the shapefile that is used for plotting the disease severity results
+SA <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL",
                 layer = "BGD_IND_NPL")
 # original GAUL unit layers are available from FAO:
 #http://data.fao.org/map?entryId=f7e7adb0-88fd-11da-a88f-000d939bc5d8
@@ -55,9 +62,9 @@ NPL.BB$BB <- factor(NPL.BB$BB, levels(NPL.BB$BB)[c(1, 3, 2, 4, 5)])
 NPL.BS$BS <- factor(NPL.BS$BS, levels(NPL.BS$BS)[c(1, 3, 2, 4, 5)])
 NPL.LB$LB <- factor(NPL.LB$LB, levels(NPL.LB$LB)[c(1, 3, 2, 4, 5)])
 
-BGD <- gaul[gaul@data$ADM0_NAME == "Bangladesh", ]
-IND <- gaul[gaul@data$ADM0_NAME == "India", ]
-NPL <- gaul[gaul@data$ADM0_NAME == "Nepal", ]
+BGD <- SA[SA@data$ADM0_NAME == "Bangladesh", ]
+IND <- SA[SA@data$ADM0_NAME == "India", ]
+NPL <- SA[SA@data$ADM0_NAME == "Nepal", ]
 
 BGD@data$id <- rownames(BGD@data)
 IND@data$id <- rownames(IND@data)
