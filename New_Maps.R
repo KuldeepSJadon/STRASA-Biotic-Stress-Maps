@@ -1,10 +1,12 @@
 library(cartography)
+library(rgdal)
+
 # Load data
 # GAUL Level 2 country layer (FAO)
 gaul <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_0/",
                 layer = "g2015_2014_0")
 # thin GAUL dataset for background plotting only. Speed up process. Not used for SA
-gaul <- thinnedSpatialPoly(gaul, tolerance = 0.1, minarea = 0.001)
+gaul <- thinnedSpatialPoly(gaul, tolerance = 0.2, minarea = 0.01)
 
 # This is the shapefile that is used for plotting the disease severity results
 SA <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL",
