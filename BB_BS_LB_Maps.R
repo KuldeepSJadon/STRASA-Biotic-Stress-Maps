@@ -22,17 +22,10 @@ library(cartography)
 #### End load libraries ####
 
 #### Load data ####
-# GAUL Level 2 country layer (FAO)
-gaul <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_0/",
-                layer = "g2015_2014_0")
-# thin GAUL dataset for background plotting only. Speed up process. Not used for SA
-gaul <- thinnedSpatialPoly(gaul, tolerance = 0.1, minarea = 0.001)
-
 # This is the shapefile that is used for plotting the disease severity results
 SA <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL",
                 layer = "BGD_IND_NPL")
 # original GAUL unit layers are available from FAO:
-#http://data.fao.org/map?entryId=f7e7adb0-88fd-11da-a88f-000d939bc5d8
 
 BGD.BB <- read.csv("csv files/BGD_BB.csv")
 BGD.BS <- read.csv("csv files/BGD_BS.csv")
