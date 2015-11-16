@@ -45,10 +45,11 @@ names(countries) <- c("BGD", "IND", "NPL")
 #### Start data munging ####
 for (i in 1:3) {
   for (j in 1:3) {
-    k <- extract(mean(diseases[[j]]), countries[[i]], method = "bilinear",
-                 weights = TRUE, fun = mean, na.rm = TRUE)
+    k <- extract(mean(diseases[[j]], na.rm = TRUE), countries[[i]],
+                 method = "bilinear", fun = mean)
 
-    k <- data.frame(unlist(lapply(k, FUN = mean, na.rm = TRUE))) # unlist and generate mean values for each polygon
+    # unlist and generate mean values for each polygon
+    k <- data.frame(unlist(lapply(k, FUN = mean, na.rm = TRUE)))
 
     row.names(k) <- row.names(countries[[i]])
     names(k) <- names(diseases[j])
