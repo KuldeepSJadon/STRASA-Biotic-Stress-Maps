@@ -1,0 +1,65 @@
+"ADM2_CODE","ADM2_NAME","STR2_YEAR","EXP2_YEAR","ADM1_CODE","ADM1_NAME","STATUS","DISP_AREA","ADM0_CODE","ADM0_NAME","Shape_Leng","Shape_Area","LB"
+5761,"Barguna",1000,3000,575,"Barisal","Member State","NO",23,"Bangladesh",3.4453134855,0.12486323553,"Low"
+5762,"Barisal",1000,3000,575,"Barisal","Member State","NO",23,"Bangladesh",3.7939222516,0.22331332012,NA
+5763,"Bhola",1000,3000,575,"Barisal","Member State","NO",23,"Bangladesh",6.06889059421,0.1994636927,"Moderately Low"
+5764,"Jhalokati",1000,3000,575,"Barisal","Member State","NO",23,"Bangladesh",2.06501551499,0.06519962578,"Low"
+5765,"Patuakhali",1000,3000,575,"Barisal","Member State","NO",23,"Bangladesh",9.86719488708,0.2203192929,"Low"
+5766,"Pirojpur",1000,3000,575,"Barisal","Member State","NO",23,"Bangladesh",3.03251098906,0.11020985645,"Low"
+5767,"Bandarban",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",5.41781730892,0.40354377636,"Moderately Low"
+5768,"Brahamanbaria",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",3.48197144539,0.16979632003,"Low"
+5769,"Chandpur",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",2.49810999088,0.15043469861,NA
+5770,"Chittagong",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",7.88430902733,0.38224744927,"Low"
+5771,"Comilla",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",3.71453354997,0.27048790721,"Low"
+5772,"Cox's Bazar",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",9.36822330552,0.17807546125,NA
+5773,"Feni",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",2.43218188702,0.07753417163,"Moderately Low"
+5774,"Khagrachhari",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",3.12158439605,0.25084846619,"Moderately Low"
+5775,"Lakshmipur",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",2.59821719618,0.12694457992,NA
+5776,"Noakhali",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",8.42808575719,0.21321090396,"Moderately Low"
+5777,"Rangamati",1000,3000,576,"Chittagong","Member State","NO",23,"Bangladesh",5.76275279965,0.50248909549,"Moderately Low"
+5778,"Dhaka",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",3.22574930953,0.1300202606,"Low"
+5779,"Faridpur",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",3.35096007564,0.17975957971,"Low"
+5780,"Gazipur",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",2.45606610135,0.15661407997,"Low"
+5781,"Gopalganj",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",2.82087445543,0.12934066338,"Low"
+5782,"Jamalpur",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",3.5941660031,0.18337704732,"Low"
+5783,"Kishoreganj",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",3.45902551298,0.22770010406,"Low"
+5784,"Madaripur",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",2.62827320526,0.10145806005,"Low"
+5785,"Manikganj",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",2.50247885886,0.12362315926,NA
+5786,"Munshiganj",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",1.88170575562,0.08365754919,"Low"
+5787,"Mymensingh",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",5.22642310918,0.38607514202,"Low"
+5788,"Narayanganj",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",1.90177516055,0.06715461104,"Low"
+5789,"Narsingdi",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",2.15553223861,0.1034024513,NA
+5790,"Netrakona",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",4.23768376617,0.24930935506,"Low"
+5791,"Rajbari",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",2.05777839269,0.10085112681,"Low"
+5792,"Shariatpur",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",1.98850435793,0.10991593334,"Low"
+5793,"Sherpur",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",1.86477757862,0.11743152841,"Low"
+5794,"Tangail",1000,3000,577,"Dhaka","Member State","NO",23,"Bangladesh",3.71720930682,0.2991531955,"Low"
+5795,"Bagerhat",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",13.7918135556,0.32002771964,NA
+5796,"Chuadanga",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",2.10925257981,0.09950224235,"Low"
+5797,"Jessore",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",4.10268497206,0.22471916646,"Low"
+5798,"Jhenaidah",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",3.4632953975,0.17298470011,"Low"
+5799,"Khulna",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",15.3352769818,0.31215677069,"Low"
+5800,"Kushtia",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",3.15129560859,0.14770153714,"Low"
+5801,"Magura",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",1.93200632085,0.09231747384,"Low"
+5802,"Meherpur",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",1.48510272537,0.05913531701,"Low"
+5803,"Narail",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",2.12948895801,0.08657831584,"Low"
+5804,"Satkhira",1000,3000,578,"Khulna","Member State","NO",23,"Bangladesh",12.3809392019,0.28598302162,"Low"
+5821,"Habiganj",1000,3000,580,"Sylhet","Member State","NO",23,"Bangladesh",3.99302961772,0.23062199049,"Low"
+5822,"Maulvibazar",1000,3000,580,"Sylhet","Member State","NO",23,"Bangladesh",3.42306435439,0.22749257423,"Low"
+5823,"Sunamganj",1000,3000,580,"Sylhet","Member State","NO",23,"Bangladesh",4.4757798092,0.32626612013,"Low"
+5824,"Sylhet",1000,3000,580,"Sylhet","Member State","NO",23,"Bangladesh",3.67562135937,0.31050461405,"Moderately Low"
+5805,"Bogra",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",4.27328579477,0.26094902229,"Low"
+5808,"Joypurhat",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",2.15108809554,0.08727977727,NA
+5811,"Naogaon",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",4.59772010232,0.30863627073,"Low"
+5812,"Natore",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",3.52949160681,0.16960407461,"Low"
+5813,"Nawabganj",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",2.90797745545,0.14561113501,"Low"
+5815,"Pabna",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",3.03008845716,0.21256966261,"Low"
+5817,"Rajshahi",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",3.38505164884,0.21503922847,"Low"
+5819,"Sirajganj",1000,3000,61362,"Rajshahi","Member State","NO",23,"Bangladesh",3.58847132385,0.22237674328,"Low"
+5806,"Dinajpur",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",4.73786039766,0.30900045996,"Low"
+5807,"Gaibandha",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",3.21390974141,0.19450234819,NA
+5809,"Kurigram",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",3.49094335134,0.20028221978,NA
+5810,"Lalmonirhat",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",3.15586812221,0.11150650897,NA
+5814,"Nilphamari",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",2.64517267401,0.1482306632,NA
+5816,"Panchagarh",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",3.15008273432,0.12499778034,NA
+5818,"Rangpur",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",3.60474739852,0.20760896345,NA
+5820,"Thakurgaon",1000,3000,61363,"Rangpur","Member State","NO",23,"Bangladesh",2.82132310259,0.16211766199,NA

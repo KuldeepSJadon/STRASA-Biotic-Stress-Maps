@@ -2,7 +2,7 @@
 # title         : BB_BS_LB_Maps.R;
 # purpose       : Generate .png files for display of predicted disease severity;
 # producer      : prepared by A. Sparks;
-# last update   : in Los Baños, Laguna, September 2015;
+# last update   : in Toowoomba, QLD, July 2016;
 # inputs        : EPIRICE output from 2001-2008 for BB, BS and LB;
 # outputs       : maps of BB, BS and LB for BGD, IND and NPL ;
 # remarks 1     : requires BB_BS_LB_csv_for_GIS.R to have been run and generated
@@ -10,50 +10,46 @@
 # Licence:      : GPL2;
 ##############################################################################
 
-#### Load libraries #####
-library(raster)
+# Load libraries ---------------------------------------------------------------
 library(rgdal)
 library(maptools)
-library(gpclib)
 library(ggplot2)
 library(plyr)
 library(RColorBrewer)
-library(cartography)
-#### End load libraries ####
 
-#### Load data ####
+# Load data --------------------------------------------------------------------
 # This is the shapefile that is used for plotting the disease severity results
-SA <- readOGR(dsn = "/Users/asparks/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL",
+SA <- readOGR(dsn = path.expand("~/Google Drive/Data/gaul/g2015_2014_2/BGD_IND_NPL"),
                 layer = "BGD_IND_NPL")
 # original GAUL unit layers are available from FAO:
 
-BGD.BB <- read.csv("csv files/BGD_BB.csv")
-BGD.BS <- read.csv("csv files/BGD_BS.csv")
-BGD.LB <- read.csv("csv files/BGD_LB.csv")
+BGD_BB <- read.csv("csv files/BGD_BB_csv")
+BGD_BS <- read.csv("csv files/BGD_BS_csv")
+BGD_LB <- read.csv("csv files/BGD_LB_csv")
 
-IND.BB <- read.csv("csv files/IND_BB.csv")
-IND.BB.mod <- read.csv("csv files/Modified_IND_BB.csv")
-IND.BS <- read.csv("csv files/IND_BS.csv")
-IND.BS.mod <- read.csv("csv files/Modified_IND_BS.csv")
-IND.LB <- read.csv("csv files/IND_LB.csv")
+IND_BB <- read.csv("csv files/IND_BB_csv")
+IND_BB_mod <- read.csv("csv files/Modified_IND_BB_csv")
+IND_BS <- read.csv("csv files/IND_BS_csv")
+IND_BS_mod <- read.csv("csv files/Modified_IND_BS_csv")
+IND_LB <- read.csv("csv files/IND_LB_csv")
 
-NPL.BB <- read.csv("csv files/NPL_BB.csv")
-NPL.BS <- read.csv("csv files/NPL_BS.csv")
-NPL.LB <- read.csv("csv files/NPL_LB.csv")
+NPL_BB <- read.csv("csv files/NPL_BB_csv")
+NPL_BS <- read.csv("csv files/NPL_BS_csv")
+NPL_LB <- read.csv("csv files/NPL_LB_csv")
 
-# rearrange factors for proper plotting since defaults to alphabetical
-BGD.BS$BS <- factor(BGD.BS$BS, levels(BGD.BS$BS)[c(1, 3, 2, 4, 5)])
-BGD.BB$BB <- factor(BGD.LB$LB, levels(BGD.LB$LB)[c(2, 1)])
+# rearrange factors for proper plotting since defaults to alphabetical----------
+BGD_BS$BS <- factor(BGD_BS$BS, levels(BGD_BS$BS)[c(1, 3, 2, 4, 5)])
+BGD_BB$BB <- factor(BGD_LB$LB, levels(BGD_LB$LB)[c(2, 1)])
 
-IND.BB$BB <- factor(IND.BB$BB, levels(IND.BB$BB)[c(1, 3, 2, 4, 5)])
-IND.BB.mod$BB <- factor(IND.BB.mod$BB, levels(IND.BB.mod$BB)[c(1, 3, 2, 4, 5)])
-IND.BS$BS <- factor(IND.BS$BS, levels(IND.BS$BS)[c(1, 3, 2, 4, 5)])
-IND.BS.mod$BS <- factor(IND.BS.mod$BS, levels(IND.BS.mod$BS)[c(1, 3, 2, 4, 5)])
-IND.LB$LB <- factor(IND.LB$LB, levels(IND.LB$LB)[c(1, 3, 2, 4, 5)])
+IND_BB$BB <- factor(IND_BB$BB, levels(IND_BB$BB)[c(1, 3, 2, 4, 5)])
+IND_BB_mod$BB <- factor(IND_BB_mod$BB, levels(IND_BB_mod$BB)[c(1, 3, 2, 4, 5)])
+IND_BS$BS <- factor(IND_BS$BS, levels(IND_BS$BS)[c(1, 3, 2, 4, 5)])
+IND_BS_mod$BS <- factor(IND_BS_mod$BS, levels(IND_BS_mod$BS)[c(1, 3, 2, 4, 5)])
+IND_LB$LB <- factor(IND_LB$LB, levels(IND_LB$LB)[c(1, 3, 2, 4, 5)])
 
-NPL.BB$BB <- factor(NPL.BB$BB, levels(NPL.BB$BB)[c(1, 3, 2, 4, 5)])
-NPL.BS$BS <- factor(NPL.BS$BS, levels(NPL.BS$BS)[c(1, 3, 2, 4, 5)])
-NPL.LB$LB <- factor(NPL.LB$LB, levels(NPL.LB$LB)[c(1, 3, 2, 4, 5)])
+NPL_BB$BB <- factor(NPL_BB$BB, levels(NPL_BB$BB)[c(1, 3, 2, 4, 5)])
+NPL_BS$BS <- factor(NPL_BS$BS, levels(NPL_BS$BS)[c(1, 3, 2, 4, 5)])
+NPL_LB$LB <- factor(NPL_LB$LB, levels(NPL_LB$LB)[c(1, 3, 2, 4, 5)])
 
 BGD <- SA[SA@data$ADM0_NAME == "Bangladesh", ]
 IND <- SA[SA@data$ADM0_NAME == "India", ]
@@ -71,22 +67,22 @@ BGD.df <- join(BGD.df, BGD@data, by = "id")
 IND.df <- join(IND.df, IND@data, by = "id")
 NPL.df <- join(NPL.df, NPL@data, by = "id")
 
-BGD.BB.df <- join(BGD.df, BGD.BB, by = "ADM2_CODE")
-BGD.BS.df <- join(BGD.df, BGD.BS, by = "ADM2_CODE")
-BGD.LB.df <- join(BGD.df, BGD.LB, by = "ADM2_CODE")
+BGD_BB_df <- join(BGD.df, BGD_BB, by = "ADM2_CODE")
+BGD_BS_df <- join(BGD.df, BGD_BS, by = "ADM2_CODE")
+BGD_LB_df <- join(BGD.df, BGD_LB, by = "ADM2_CODE")
 
-IND.BB.df <- join(IND.df, IND.BB, by = "ADM2_CODE")
-IND.BB.mod.df <- join(IND.df, IND.BB.mod, by = "ADM2_CODE")
-IND.BS.df <- join(IND.df, IND.BS, by = "ADM2_CODE")
-IND.BS.mod.df <- join(IND.df, IND.BS.mod, by = "ADM2_CODE")
-IND.LB.df <- join(IND.df, IND.LB, by = "ADM2_CODE")
+IND_BB_df <- join(IND.df, IND_BB, by = "ADM2_CODE")
+IND_BB_mod.df <- join(IND.df, IND_BB_mod, by = "ADM2_CODE")
+IND_BS_df <- join(IND.df, IND_BS, by = "ADM2_CODE")
+IND_BS_mod.df <- join(IND.df, IND_BS_mod, by = "ADM2_CODE")
+IND_LB_df <- join(IND.df, IND_LB, by = "ADM2_CODE")
 
-NPL.BB.df <- join(NPL.df, NPL.BB, by = "ADM2_CODE")
-NPL.BS.df <- join(NPL.df, NPL.BS, by = "ADM2_CODE")
-NPL.LB.df <- join(NPL.df, NPL.LB, by = "ADM2_CODE")
+NPL_BB_df <- join(NPL.df, NPL_BB, by = "ADM2_CODE")
+NPL_BS_df <- join(NPL.df, NPL_BS, by = "ADM2_CODE")
+NPL_LB_df <- join(NPL.df, NPL_LB, by = "ADM2_CODE")
 
-#### Begin plotting maps using ggplot2 ####
-ggplot(data = BGD.BB.df, aes(long, lat, group = group, fill = BB)) +
+#### Begin plotting maps using ggplot2 -----------------------------------------
+ggplot(data = BGD_BB_df, aes(long, lat, group = group, fill = BB)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu") +
   scale_y_continuous(name = "Latitude") +
@@ -103,7 +99,7 @@ ggplot(data = BGD.BB.df, aes(long, lat, group = group, fill = BB)) +
 ggsave("Maps/BGD_BB.png", width = 6, height = 6, units = "in")
 
 # BS
-ggplot(data = BGD.BS.df, aes(long, lat, group = group, fill = BS)) +
+ggplot(data = BGD_BS_df, aes(long, lat, group = group, fill = BS)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -120,7 +116,7 @@ ggplot(data = BGD.BS.df, aes(long, lat, group = group, fill = BS)) +
 ggsave("Maps/BGD_BS.png", width = 6, height = 6, units = "in")
 
 # LB
-ggplot(data = BGD.LB.df, aes(long, lat, group = group, fill = LB)) +
+ggplot(data = BGD_LB_df, aes(long, lat, group = group, fill = LB)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -138,7 +134,7 @@ ggsave("Maps/BGD_LB.png", width = 6, height = 6, units = "in")
 
 # IND
 # BB
-ggplot(data = IND.BB.df, aes(long, lat, group = group, fill = BB)) +
+ggplot(data = IND_BB_df, aes(long, lat, group = group, fill = BB)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -155,7 +151,7 @@ ggplot(data = IND.BB.df, aes(long, lat, group = group, fill = BB)) +
 ggsave("Maps/IND_BB.png", width = 6, height = 6, units = "in")
 
 # BS
-ggplot(data = IND.BS.df, aes(long, lat, group = group, fill = BS)) +
+ggplot(data = IND_BS_df, aes(long, lat, group = group, fill = BS)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -172,7 +168,7 @@ ggplot(data = IND.BS.df, aes(long, lat, group = group, fill = BS)) +
 ggsave("Maps/IND_BS.png", width = 6, height = 6, units = "in")
 
 # LB
-ggplot(data = IND.LB.df, aes(long, lat, group = group, fill = LB)) +
+ggplot(data = IND_LB_df, aes(long, lat, group = group, fill = LB)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -190,7 +186,7 @@ ggsave("Maps/IND_LB.png", width = 6, height = 6, units = "in")
 
 # NPL
 # BB
-ggplot(data = NPL.BB.df, aes(long, lat, group = group, fill = BB)) +
+ggplot(data = NPL_BB_df, aes(long, lat, group = group, fill = BB)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -207,7 +203,7 @@ ggplot(data = NPL.BB.df, aes(long, lat, group = group, fill = BB)) +
 ggsave("Maps/NPL_BB.png", width = 6, height = 6, units = "in")
 
 # BS
-ggplot(data = NPL.BS.df, aes(long, lat, group = group, fill = BS)) +
+ggplot(data = NPL_BS_df, aes(long, lat, group = group, fill = BS)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -224,7 +220,7 @@ ggplot(data = NPL.BS.df, aes(long, lat, group = group, fill = BS)) +
 ggsave("Maps/NPL_BS.png", width = 6, height = 6, units = "in")
 
 # LB
-ggplot(data = NPL.LB.df, aes(long, lat, group = group, fill = LB)) +
+ggplot(data = NPL_LB_df, aes(long, lat, group = group, fill = LB)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -244,7 +240,7 @@ ggsave("Maps/NPL_LB.png", width = 6, height = 6, units = "in")
 
 #### Begin data visualisation of modified data ####
 # BB
-ggplot(data = IND.BB.mod.df, aes(long, lat, group = group, fill = BB)) +
+ggplot(data = IND_BB_mod.df, aes(long, lat, group = group, fill = BB)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
@@ -261,7 +257,7 @@ ggplot(data = IND.BB.mod.df, aes(long, lat, group = group, fill = BB)) +
 ggsave("Maps/Modified_IND_BB.png", width = 6, height = 6, units = "in")
 
 # BS
-ggplot(data = IND.BS.mod.df, aes(long, lat, group = group, fill = BS)) +
+ggplot(data = IND_BS_mod.df, aes(long, lat, group = group, fill = BS)) +
   geom_polygon(color = "white", size = 0.2) +
   scale_fill_brewer(palette = "GnBu", name = "Relative Risk") +
   scale_y_continuous(name = "Latitude") +
